@@ -1,0 +1,37 @@
+# serverless.yml
+
+service: log-everymundo-microservice
+
+plugins:
+  - serverless-python-requirements
+  - serverless-wsgi
+  - serverless-offline
+  - serverless-apigw-binary
+
+custom:
+  wsgi:
+    app: app.app
+    packRequirements: false
+  pythonRequirements:
+    dockerizePip: false
+  apigwBinary:
+    types:
+      - 'text/plain'
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: us-east-1
+  environment:
+    SECRET_KEY: Millave12345.Alpha
+    BUCKET_NAME: logeverymundo
+    ACCESS_KEY: AKIATO7EDAI7AAZVKQFL
+    SECRET: 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
+
+functions:
+  app:
+    handler: wsgi.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
