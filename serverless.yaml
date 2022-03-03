@@ -24,10 +24,10 @@ provider:
   stage: dev
   region: us-east-1
   environment:
-    SECRET_KEY: Millave12345.Alpha
-    BUCKET_NAME: logeverymundo
-    ACCESS_KEY: AKIATO7EDAI7AAZVKQFL
-    SECRET: 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
+    SECRET_KEY: XXXXXXXXX
+    BUCKET_NAME: XXXXXX
+    ACCESS_KEY: XXXXX
+    SECRET: XXXXXXXX
 
 functions:
   app:

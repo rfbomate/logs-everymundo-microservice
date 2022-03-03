@@ -307,7 +307,15 @@ def filterLogs():
 
             entryLogs += textReaded.split("\n")
 
-        # comenzamos el proceso de filtro
+        # we begin to scan de logs
+        for itemLog in entryLogs:
+            logParts = itemLog.split('-')
+            # we validate the format because the could be corrupt for third people
+            # if itemLog is corrupted, this item don't show in the list
+
+            timestampCursor = logParts[0]
+            applicationCursor = logParts[1]
+            categoryCursor = logParts[2]
 
         return jsonify({"result": len(entryLogs)})
 
