@@ -74,7 +74,7 @@
     "AppLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/log-everymundo-microservice-dev-app"
+        "LogGroupName": "/aws/lambda/manage-logs-everymundo-microservice-dev-app"
       }
     },
     "IamRoleLambdaExecution": {
@@ -102,7 +102,7 @@
               "Fn::Join": [
                 "-",
                 [
-                  "log-everymundo-microservice",
+                  "manage-logs-everymundo-microservice",
                   "dev",
                   "lambda"
                 ]
@@ -119,7 +119,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/log-everymundo-microservice-dev*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/manage-logs-everymundo-microservice-dev*:*"
                     }
                   ]
                 },
@@ -130,7 +130,7 @@
                   ],
                   "Resource": [
                     {
-                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/log-everymundo-microservice-dev*:*:*"
+                      "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/manage-logs-everymundo-microservice-dev*:*:*"
                     }
                   ]
                 }
@@ -143,7 +143,7 @@
           "Fn::Join": [
             "-",
             [
-              "log-everymundo-microservice",
+              "manage-logs-everymundo-microservice",
               "dev",
               {
                 "Ref": "AWS::Region"
@@ -161,19 +161,19 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/log-everymundo-microservice/dev/1646334307347-2022-03-03T19:05:07.347Z/log-everymundo-microservice.zip"
+          "S3Key": "serverless/manage-logs-everymundo-microservice/dev/1646380054286-2022-03-04T07:47:34.286Z/manage-logs-everymundo-microservice.zip"
         },
         "Handler": "wsgi_handler.handler",
         "Runtime": "python3.8",
-        "FunctionName": "log-everymundo-microservice-dev-app",
+        "FunctionName": "manage-logs-everymundo-microservice-dev-app",
         "MemorySize": 1024,
         "Timeout": 6,
         "Environment": {
           "Variables": {
-            "SECRET_KEY": "Millave12345.Alpha",
-            "BUCKET_NAME": "logeverymundo",
-            "ACCESS_KEY": "AKIATO7EDAI7AAZVKQFL",
-            "SECRET": "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"
+            "SECRET_KEY": "/THgYhQJ1O6GrTJS8CYWMpdMEQGHfBqD3AHgwMng",
+            "BUCKET_NAME": "logs-everymundo-bucket",
+            "BUCKET_NAME_SUSCRIPTORS": "subscriptors-everymundo-bucket",
+            "ACCESS_KEY": "AKIAZIKQ6V2GZFXZOHNH"
           }
         },
         "Role": {
@@ -187,20 +187,20 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionoBRTFcQ99VD1PRqkcPLFiMnVzEieK5Sv3R39zlc": {
+    "AppLambdaVersionRRgipLgaCR0XqvzWfXZ5di5DMJaF58Et4yKLadvic": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "MrOWCwDHIWY4PVtk3KrZIrjCmcWMTfHf4M1ry3Deo4o="
+        "CodeSha256": "AGNpa80XqGaTHeofN3357npoLB79xcJabVNiU0G38Gc="
       }
     },
     "ApiGatewayRestApi": {
       "Type": "AWS::ApiGateway::RestApi",
       "Properties": {
-        "Name": "dev-log-everymundo-microservice",
+        "Name": "dev-manage-logs-everymundo-microservice",
         "EndpointConfiguration": {
           "Types": [
             "EDGE"
@@ -319,7 +319,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1646334291976": {
+    "ApiGatewayDeployment1646380038533": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -376,16 +376,16 @@
         "Ref": "ServerlessDeploymentBucket"
       },
       "Export": {
-        "Name": "sls-log-everymundo-microservice-dev-ServerlessDeploymentBucketName"
+        "Name": "sls-manage-logs-everymundo-microservice-dev-ServerlessDeploymentBucketName"
       }
     },
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionoBRTFcQ99VD1PRqkcPLFiMnVzEieK5Sv3R39zlc"
+        "Ref": "AppLambdaVersionRRgipLgaCR0XqvzWfXZ5di5DMJaF58Et4yKLadvic"
       },
       "Export": {
-        "Name": "sls-log-everymundo-microservice-dev-AppLambdaFunctionQualifiedArn"
+        "Name": "sls-manage-logs-everymundo-microservice-dev-AppLambdaFunctionQualifiedArn"
       }
     },
     "ServiceEndpoint": {
@@ -411,7 +411,7 @@
         ]
       },
       "Export": {
-        "Name": "sls-log-everymundo-microservice-dev-ServiceEndpoint"
+        "Name": "sls-manage-logs-everymundo-microservice-dev-ServiceEndpoint"
       }
     }
   }

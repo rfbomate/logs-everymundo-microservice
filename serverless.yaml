@@ -1,6 +1,6 @@
 # serverless.yml
 
-service: log-everymundo-microservice
+service: manage-logs-everymundo-microservice
 
 plugins:
   - serverless-python-requirements
@@ -24,10 +24,10 @@ provider:
   stage: dev
   region: us-east-1
   environment:
-    SECRET_KEY: XXXXXXXXX
-    BUCKET_NAME: XXXXXX
-    ACCESS_KEY: XXXXX
-    SECRET: XXXXXXXX
+    SECRET_KEY: /THgYhQJ1O6GrTJS8CYWMpdMEQGHfBqD3AHgwMng
+    BUCKET_NAME: logs-everymundo-bucket
+    BUCKET_NAME_SUSCRIPTORS: subscriptors-everymundo-bucket
+    ACCESS_KEY: AKIAZIKQ6V2GZFXZOHNH
 
 functions:
   app:
