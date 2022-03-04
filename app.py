@@ -23,13 +23,6 @@ app = Flask(__name__)
 os.environ['TZ'] = 'America/Guayaquil'
 
 
-@app.route("/", methods=['GET'])
-def hello():
-    return {
-        "message": "Main page"
-    }, 200
-
-
 @app.route("/createSingleLog", methods=["POST"])
 @token_required
 def createSingleLog(current_user):
