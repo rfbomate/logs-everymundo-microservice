@@ -17,8 +17,8 @@ def filterLogsServices(request):
         severity = request.json.get('severity')
 
         # when both field are empties, not exist pagination process
-        limit = str(request.json.get('limit'))
-        offset = str(request.json.get('offset'))
+        limit = request.json.get('limit')
+        offset = request.json.get('offset')
 
         if(not timestampBegin and not timestampEnd and not application and not category and not severity):
             return jsonify({'message': "At least a param must send to filter logs"}), 400
@@ -27,14 +27,14 @@ def filterLogsServices(request):
             if(not offset):
                 return jsonify({'message': "If you pass limit, you must pass offset"}), 400
 
-            if(not isinstance(int(limit), int)):
+            if(not isinstance(limit, int)):
                 return jsonify({'message': 'The limit must be a integer value'}), 400
 
         if(offset):
             if not limit:
                 return jsonify({'message': "If you pass offset, you must pass limit"}), 400
 
-            if(not isinstance(int(offset), int)):
+            if(not isinstance(offset, int)):
                 return jsonify({'message': 'The offset must be a integer value'}), 400
 
         dateFormat = "%Y-%m-%d"
@@ -75,58 +75,39 @@ def filterLogsServices(request):
                 return jsonify({"message": "The start date must be less than the End date"}), 400
 
         if(category and not (category in typeOfCategory)):
-            return jsonify({"message": "The category is not allowed"})
+            return jsonify({"message": "The category is not allowed"}), 400
 
         if(severity and not(severity in typeOfLevel)):
-            return jsonify({"message": "The level of severity is not allowed"})
+            return jsonify({"message": "The level of severity is not allowed"}), 400
 
-        logsFiles = []
         session = boto3.Session(
             aws_access_key_id=os.environ['ACCESS_KEY'], aws_secret_access_key=os.environ['SECRET_KEY'])
         s3 = session.resource('s3')
+
         bucketObject = s3.Bucket(os.environ['BUCKET_NAME'])
-        for my_bucket_object in bucketObject.objects.all():
-            key = my_bucket_object.key
-            separatedKey = key.split('.')[0]
-            separatedDateKey = separatedKey.split('-')
-            # selected files for search
-            if(timestampBegin and not timestampEnd):
-                separatedTimestampBegin = timestampBegin.split("T")
-                separatedDateBegin = separatedTimestampBegin[0].split("-")
-                if(str(separatedDateKey[0]) >= str(separatedDateBegin[0])):
-                    logsFiles.append(my_bucket_object)
+        # get all object of a bucket
+        allObjects = bucketObject.objects.all()
+        # reverse objects
+        objectSelected = False
+        for itemObject in allObjects:
+            objectSelected = itemObject
 
-            if(not timestampBegin and timestampEnd):
-                separatedTimestampEnd = timestampEnd.split("T")
-                separatedDateEnd = separatedTimestampEnd[0].split("-")
-                if(str(separatedDateKey[0]) <= str(separatedDateEnd[0])):
-                    logsFiles.append(my_bucket_object)
-
-            if(timestampBegin and timestampEnd):
-                separatedTimestampBegin = timestampBegin.split("T")
-                separatedDateBegin = separatedTimestampBegin[0].split("-")
-
-                separatedTimestampEnd = timestampEnd.split("T")
-                separatedDateEnd = separatedTimestampEnd[0].split("-")
-
-                if(str(separatedDateKey[0]) >= str(separatedDateBegin[0]) and str(separatedDateKey[0]) <= str(separatedDateEnd[0])):
-                    logsFiles.append(my_bucket_object)
-
-            if(not timestampBegin and not timestampEnd):
-                logsFiles.append(my_bucket_object)
+        my_bucket_object = objectSelected if objectSelected != False else False
+        if(my_bucket_object == False):
+            return jsonify({"result": [], 'message': 'Search made ok'})
 
         # load entry logs of the selected files
         entryLogs = []
-        for itemFile in logsFiles:
-            fileObjectRead = s3.Bucket(os.environ['BUCKET_NAME']).Object(
-                itemFile.key)  # read a specific file
-            if(not fileObjectRead):
-                return jsonify({"message": "An error has occured reading the file"}), 400
 
-            body = fileObjectRead.get()['Body'].read().decode('utf-8')
-            textReaded = str(body)
+        fileObjectRead = s3.Bucket(os.environ['BUCKET_NAME']).Object(
+            my_bucket_object.key)  # read a specific file
+        if(not fileObjectRead):
+            return jsonify({"message": "An error has occured reading the file"}), 400
 
-            entryLogs += textReaded.split("\n")
+        body = fileObjectRead.get()['Body'].read().decode('utf-8')
+        textReaded = str(body)
+
+        entryLogs += textReaded.split("\n")
 
         result = []
         # we begin to scan de logs
@@ -162,8 +143,10 @@ def filterLogsServices(request):
             conditionCategory = True
             conditionSeverity = True
             conditionTimestamp = True
-            timestampBegin = timestampBegin.replace("-", "")
-            timestampEnd = timestampEnd.replace("-", "")
+            if(timestampBegin):
+                timestampBegin = timestampBegin.replace("-", "")
+            if(timestampEnd):
+                timestampEnd = timestampEnd.replace("-", "")
 
             if(timestampBegin and not timestampEnd):
                 if(timestampCursor < timestampBegin):
@@ -213,7 +196,7 @@ def filterLogsServices(request):
                 result.append(itemLog)
 
         if(not limit and not offset):
-            return jsonify({"result": result})
+            return jsonify({"result": result, 'message': 'Search made ok'})
 
         # we begin with the pagination process
         limit = int(limit)
@@ -230,6 +213,6 @@ def filterLogsServices(request):
         else:
             totalPages = int(
                 totalElements / limit) if totalElements % limit == 0 else int(totalElements // limit)+1
-        return jsonify({'result': segment, 'totalElements': totalElements, 'totalPages': totalPages, 'offset': offset, 'limit': limit})
+        return jsonify({'message': 'Search made ok', 'result': segment, 'totalElements': totalElements, 'totalPages': totalPages, 'offset': offset, 'limit': limit})
     except Exception as e:
         return jsonify({'message': str(e)}), 400

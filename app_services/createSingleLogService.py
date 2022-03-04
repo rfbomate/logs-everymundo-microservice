@@ -11,10 +11,13 @@ def createSingleLogService(request):
     typeOfCategory = ['ERROR', 'SUCCESS', 'INFO']  # categories allowe
     typeOfLevel = ['1', '2', '3', '4', '5']  # level error allowed
 
-    application = request.json.get('application')
-    category = request.json.get('category')
-    levelError = request.json.get('levelError')
-    description = request.json.get('description')
+    try:
+        application = request.json.get('application')
+        category = request.json.get('category')
+        levelError = request.json.get('levelError')
+        description = request.json.get('description')
+    except Exception as e:
+        return jsonify({'messasge': "The input is not correct", "description": str(e)}), 400
 
     # validation input data
     if(not application):
@@ -30,7 +33,7 @@ def createSingleLogService(request):
         return jsonify({'message': "The category param must be a string value"}), 400
 
     if(not description):
-        return jsonify({'message': "The description param is required"})
+        return jsonify({'message': "The description param is required"}), 400
 
     if(not isinstance(description, str)):
         return jsonify({'message': "The description param must be a string value"}), 400

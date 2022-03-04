@@ -19,13 +19,13 @@ def createSubscriptionService(request):
         return jsonify({'message': 'The application is required'}), 400
 
     if(not category):
-        return jsonify({'message': 'The category is required'})
+        return jsonify({'message': 'The category is required'}), 400
 
     if(category.upper() not in typeOfCategory):
         return jsonify({'message': 'The category is not allowed'}), 400
 
     if(('-' in email) or ('-' in application) or ('-' in category)):
-        return jsonify({'message': "Symbol - is reserved words of the syntaxis of the subscription register. You can't use it"})
+        return jsonify({'message': "Symbol is not valid"}), 400
 
     try:
         session = boto3.Session(

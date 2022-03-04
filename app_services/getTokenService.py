@@ -5,12 +5,15 @@ SECRET_KEY = os.environ['SECRET_KEY']
 
 
 def getTokenService(request):
-    email = request.json.get('email')
-    userId = request.json.get('userId')
+    try:
+        email = request.json.get('email')
+        userId = request.json.get('userId')
+    except Exception as e:
+        return jsonify({'message': 'The input is not complete', "description": str(e)}), 400
 
     if(not email or not userId):
-        return jsonify({'message': "The input params does not complete"})
+        return jsonify({'message': "The input is not complete"}), 400
 
     token = jwt.encode({'emailAndId': email+'~'+userId}, SECRET_KEY)
 
-    return jsonify({'token': token})
+    return jsonify({'token': token, 'message': 'Data saved ok'})

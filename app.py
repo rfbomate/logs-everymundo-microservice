@@ -3,7 +3,6 @@
 
 from crypt import methods
 import os
-from itsdangerous import exc
 
 from auth_middleware import token_required
 
