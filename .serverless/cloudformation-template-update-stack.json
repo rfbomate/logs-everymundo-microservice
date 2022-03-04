@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/manage-logs-everymundo-microservice/dev/1646380054286-2022-03-04T07:47:34.286Z/manage-logs-everymundo-microservice.zip"
+          "S3Key": "serverless/manage-logs-everymundo-microservice/dev/1646381721396-2022-03-04T08:15:21.396Z/manage-logs-everymundo-microservice.zip"
         },
         "Handler": "wsgi_handler.handler",
         "Runtime": "python3.8",
@@ -170,10 +170,10 @@
         "Timeout": 6,
         "Environment": {
           "Variables": {
-            "SECRET_KEY": "/THgYhQJ1O6GrTJS8CYWMpdMEQGHfBqD3AHgwMng",
+            "SECRET_KEY": "Tw9Ub5tHJmDQ+mlGJcJG1JzgZxJouaw8+0itkkUl",
             "BUCKET_NAME": "logs-everymundo-bucket",
             "BUCKET_NAME_SUSCRIPTORS": "subscriptors-everymundo-bucket",
-            "ACCESS_KEY": "AKIAZIKQ6V2GZFXZOHNH"
+            "ACCESS_KEY": "AKIAZIKQ6V2GXTPWGJEL"
           }
         },
         "Role": {
@@ -187,14 +187,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersionRRgipLgaCR0XqvzWfXZ5di5DMJaF58Et4yKLadvic": {
+    "AppLambdaVersionLY66v20coJfXC2JqXxHD2Ml1sj6z5qGUJvkubmQKrE": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "AGNpa80XqGaTHeofN3357npoLB79xcJabVNiU0G38Gc="
+        "CodeSha256": "cO9U5hUPc6nOSYt6C4lqFUPRQHBj7wttFk9l+EAk1jo="
       }
     },
     "ApiGatewayRestApi": {
@@ -319,7 +319,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1646380038533": {
+    "ApiGatewayDeployment1646381704688": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -382,7 +382,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersionRRgipLgaCR0XqvzWfXZ5di5DMJaF58Et4yKLadvic"
+        "Ref": "AppLambdaVersionLY66v20coJfXC2JqXxHD2Ml1sj6z5qGUJvkubmQKrE"
       },
       "Export": {
         "Name": "sls-manage-logs-everymundo-microservice-dev-AppLambdaFunctionQualifiedArn"

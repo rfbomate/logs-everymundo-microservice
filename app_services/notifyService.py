@@ -1,4 +1,5 @@
 import email
+from nis import cat
 from posixpath import split
 from flask import jsonify
 import os
@@ -7,6 +8,8 @@ from datetime import datetime
 
 
 def notifyService(request):
+    typeOfCategory = ['ERROR', 'SUCCESS', 'INFO']  # categories allowed
+
     actualDate = datetime.today().strftime('%Y-%m-%d')
     session = boto3.Session(
         aws_access_key_id=os.environ['ACCESS_KEY'], aws_secret_access_key=os.environ['SECRET_KEY'])
@@ -21,13 +24,8 @@ def notifyService(request):
     textReaded = str(body)
 
     listLines = textReaded.split("\n")
-    listForMail = []
-    for line in listLines:
-        separated = line.split('-')
-        email = separated[0]
-        application = separated[1]
-        category = separated[2]
+    dictMails = {}
 
-        # ingreso los elementos a la lista para poder envir los respectivos mails
+    # ingreso los elementos a la lista para poder envir los respectivos mails
 
     return jsonify({'message': 'Data saved ok'})
