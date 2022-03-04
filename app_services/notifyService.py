@@ -72,6 +72,7 @@ def notifyService(request):
         listLines = textReaded.split("\n")
 
         # fill logs input by user and conditions
+        newListMails = {}
         for itemLog in listLines:
             separatedLog = itemLog.split("-")
             if(len(separatedLog) != 3):
@@ -91,7 +92,6 @@ def notifyService(request):
             else:
                 categoryItemLog = areacategory
 
-            newListMails = {}
             for key in mailsToSend.keys():
                 listSuscriptions = mailsToSend[key]
                 for itemSuscription in listSuscriptions:
@@ -101,20 +101,22 @@ def notifyService(request):
                         else:
                             newListMails[key] = [itemLog]
 
-            # send mails
-            for itemKey in newListMails.keys():
-                logsAsString = ''
-                listLogs = newListMails[itemKey]
+        # send mails
+        emailSended = []
+        for itemKey in newListMails.keys():
+            logsAsString = ''
+            listLogs = newListMails[itemKey]
 
-                for itemListBug in listLogs:
-                    logsAsString += str(itemListBug)+'\n'
+            for itemListBug in listLogs:
+                logsAsString += str(itemListBug)+'\n'
 
-                message = 'Hi '+str(itemKey)+'\n' + \
-                    '<h1>List of logs</h1>'+'\n'+logsAsString
+            message = 'Hi '+str(itemKey)+'\n' + \
+                '<h1>List of logs</h1>'+'\n'+logsAsString
 
-                notify(str(itemKey), message)
+            response = notify(str(itemKey), message)
+            emailSended.append(response)
 
-        return jsonify({'message': 'Notifications are sended ok'})
+        return jsonify({'message': 'Notifications are sended ok', 'sendedEmail': emailSended})
     except Exception as e:
         return jsonify({"message": str(e)})
 
@@ -122,4 +124,5 @@ def notifyService(request):
 
 
 def notify(email, content):
+    # this method asume that email is sended and return the data that has been sended to de destinatary
     return {"email": email, "content": content}

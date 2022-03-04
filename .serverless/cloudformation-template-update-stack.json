@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/manage-logs-everymundo-microservice/dev/1646430098589-2022-03-04T21:41:38.589Z/manage-logs-everymundo-microservice.zip"
+          "S3Key": "serverless/manage-logs-everymundo-microservice/dev/1646435829196-2022-03-04T23:17:09.196Z/manage-logs-everymundo-microservice.zip"
         },
         "Handler": "wsgi_handler.handler",
         "Runtime": "python3.8",
@@ -187,14 +187,14 @@
         "AppLogGroup"
       ]
     },
-    "AppLambdaVersion2Ytrdha62rFxlGsJ62YIqt6TJMyla9qddNaSpkAf0": {
+    "AppLambdaVersionOn4K8P3YycMz8d9EHxbSOfQEwup7FXikM5oZG2l6a2s": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "AppLambdaFunction"
         },
-        "CodeSha256": "oLeOSjAtL6rlysihiWuhs+89oCbbyZpgNWA9CW1cQnI="
+        "CodeSha256": "1Yy2/ZaCypArnOwG+uJ0uL72qns9MDnM9C1fEchZzDA="
       }
     },
     "ApiGatewayRestApi": {
@@ -319,7 +319,7 @@
         "AppLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1646430081973": {
+    "ApiGatewayDeployment1646435812761": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -382,7 +382,7 @@
     "AppLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "AppLambdaVersion2Ytrdha62rFxlGsJ62YIqt6TJMyla9qddNaSpkAf0"
+        "Ref": "AppLambdaVersionOn4K8P3YycMz8d9EHxbSOfQEwup7FXikM5oZG2l6a2s"
       },
       "Export": {
         "Name": "sls-manage-logs-everymundo-microservice-dev-AppLambdaFunctionQualifiedArn"
