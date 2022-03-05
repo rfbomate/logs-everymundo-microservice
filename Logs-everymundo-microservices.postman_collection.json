@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "924e0443-ef67-40d0-bfa2-3898f46ac8e2",
+		"name": "Logs-everymundo-microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getToken",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "createSingleLog",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "statsLogsByFile",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "filterLogs",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"timestampBegin\":\"2022-02-23T23:05\",\n    \"timestampEnd\":\"2023-04-23T23:05\",\n    \"limit\":2,\n    \"offset\":0\n\n    \n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://js33rzfdnl.execute-api.us-east-1.amazonaws.com/dev/filterLogs",
+					"protocol": "https",
+					"host": [
+						"js33rzfdnl",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"filterLogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSubscription",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"rfbomate86@gmail.com\",\n    \"application\":\"Iberia\",\n    \"category\":\"ERROR\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://js33rzfdnl.execute-api.us-east-1.amazonaws.com/dev/createSubscription",
+					"protocol": "https",
+					"host": [
+						"js33rzfdnl",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"createSubscription"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "notify",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
