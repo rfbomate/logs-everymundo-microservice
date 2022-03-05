@@ -45,7 +45,7 @@ serverless config credentials \
 
 Once these steps are completed, we are ready to manipulate the serverless.yaml file, with which we are going to make the final adjustments before proceeding to "deploy" the service to AWS Lambda.
 
-# Edit archivo serverless.yaml
+# Edit file serverless.yaml
 
 Below we will describe the sections of the file that should be edited to achieve a better degree of customization when deploying to AWS.
 
