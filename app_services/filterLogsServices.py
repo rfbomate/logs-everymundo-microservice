@@ -24,7 +24,7 @@ def filterLogsServices(request):
             return jsonify({'message': "At least a param must send to filter logs"}), 400
 
         if(limit):
-            if(not offset):
+            if(offset != 0 and not offset):
                 return jsonify({'message': "If you pass limit, you must pass offset"}), 400
 
             if(not isinstance(limit, int)):

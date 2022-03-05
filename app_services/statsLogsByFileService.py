@@ -44,7 +44,7 @@ def statsLogsByFileService(request):
         textReaded = str(body)
 
         # delete temporal file
-        fileObjectRead.delete()
+        # fileObjectRead.delete()
 
         # processing file
         lines = textReaded.split("\n")
